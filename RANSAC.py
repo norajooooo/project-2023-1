@@ -1,35 +1,67 @@
+$ mkdir tur-ransac
+$ cd tur-ransac
+$ gedit RANSAC.py
+
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
 
-f=open('/home/d06/Downloads/RANSAC_data.csv')
-rdr=csv.reader(f)
-dt=[]
+f = open('/home/../RANSAC_data.csv','r')
+rdr = csv.reader (f)
+_mydata = []
+# data loading and store to list
 for line in rdr:
-    x_dt=float(line[0])
-    y_dt=float(line[1])
-    dt.append([x_dt,y_dt])
+#print (line)
+x_data=float(line[0])
+y_data=float(line[1])
+_mydata.append([x_data, y_data])
 f.close()
-data=np.array(dt)
+data=np.array(_mydata)
 
-def ransac_line_fitting(data,n_iterations=100,threshold=1,min_inliers=10):
-    best_fit=None
-    best_error=np.inf
-    best_inliers=None
-    for i in range(n_iterations):
-        sample=data[np.random.choice(data.shape[0],2,replace=False),:]
-        x1,y1=sample[0]
-        x2,y2=sample[1]
-        a=(y2-y1)/(x2-x1)
-        b=y1-a*x1
-        dist=np.abs(a*data[:,0]-data[:,1]+b/np.sqrt(a**2+1))
-        inliers=data[dist<threshold]
-        if len(inliers)>=min_inliers:
-            error=np.sum(dist**2)
-            if error<best_error:
-                best_fit=(a,b)
-                best_error=error
-                best_inliers=inliers
-    return best_fit, best_inliers
+model, inliers = ransac_line_fitting(data, n_iterations=100, threshold=1,
+min_inliers=10)
 
-model,inliers=ransac_line_fitting(data,n_iterations=100,threshold=1,min_inliers=10)
+def ransac_line_fitting(data, n iterations-100, threshold=1,
+min_inljers 10);
+best_fit = None
+best_error = np.inf
+best_inliers = None
+
+for i in range(n_iterations):
+# Randomly select 2 points from the data
+sample = data[np.random.choice(data.shape[0], 2, replace=False), :]
+
+# Fit a line to the selected points
+x1, y1 = sample[0]
+x2, y2 = sample[1]
++ 1)
+a = (y2 - y1) / (x2 - x1)
+b = y1 - a * x1
+
+# Compute the distance of each point to the line
+distances = np.abs(a * data[:, 0] - data[:, 1] + b) / np.sqrt(a**2
+# Find inliers within the threshold
+inliers = data[distances < threshold]
+
+# Check if we found a better fit
+if len(inliers) >= min_inliers:
+error = np.sum(distances**2)
+if error <best_error:
+best_fit = (a, b)
+best_error = error
+best_inliers = inliers
+return best_fit, best_inliers
+
+model, inliers = ransac_line_fitting(data, n_iterations=100, threshold=1,
+min_inliers-10)
+
+plt.scatter (data[:, 0], data[:, 1], label="Data")
+plt.scatter (inliers[:, 0], inliers[:, 1], label="Inliers")
+x_range = np.linspace(0, 10, 100)
+plt.plot(x_range, model[0] x__range + model[1], 'r', label="RANSAC Line")
+plt.legend()
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.show()
+
+$ python3 RANSAC.py
