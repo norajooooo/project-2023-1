@@ -7,18 +7,11 @@ import time
 
 
 def talker():
-    pub =rospy.Publisher('chatter', String, queue_size=20)
     rospy.init_node('talker', anonymous=True)
-    rate =rospy.Rate(10) # 10hz
+    pub = rospy.Publisher('chatter', String, queue_size=10)
     time.sleep(0.1)
-    hello_str="hello world%s" %rospy.get_time()
     for i in range(10):
-        pub.publish(hello_str)
-# TODO: publish 10 string data, topic name is chatter
-
-
-
-
+        pub.publish("hello world")
     
     
 if __name__ == '__main__':
@@ -26,3 +19,4 @@ if __name__ == '__main__':
         talker()
     except rospy.ROSInterruptException:
         pass
+
