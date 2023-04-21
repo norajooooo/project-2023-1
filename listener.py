@@ -9,7 +9,7 @@ def callback(msg):
 def listener():
 #topic name is /turtle1/cmd_vel, topic type is Twist
     rospy.init_node('listener', anonymous=True)
-    rospy.Subscriber('/turtle1/cmd_vel', Twist, callback)
+    rospy.Subscriber('chatter', String, callback)
     rospy.spin()
 
 if __name__ == '__main__':
