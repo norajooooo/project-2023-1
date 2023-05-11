@@ -28,16 +28,17 @@ class DetermineColor:
             imgresize = cv2.resize(image[80:370,80:559], (80, 60), interpolation=cv2.INTER_AREA)
             image_deter=np.concatenate((imgresize[:,[15,64]].reshape((-1,3)),imgresize[[11,48],:].reshape((-1,3))),axis=0)      #convert to 1-D array(except color channel)
             color_count={"red":0,"blue":0,"etc":0}
-
+            
             
             pixel_count=image_deter.shape[0]
             for i in range(pixel_count):
                 cup=image_deter[i]
                 X=cup[0]/cup.sum()
                 Y=cup[1]/cup.sum()
-                if Y>=0.6*(X-0.18) and Y<=4(X-0.25):
+                print(X,Y)
+                if 0.18*Y-0.31*X<-0.06 and 0.03*X-0.22*Y>-0.07:
                     color_count["red"]+=1
-                elif Y>=4(X-0.25) and Y<=0.45-0.25*X and Y>=2.5*(0.18-X):
+                elif 0.07*Y-0.31*X>-0.06 and 0.27*Y+0.21*X<0.14 :
                     color_count["blue"]+=1
                 else:
                     color_count["etc"]+=1
