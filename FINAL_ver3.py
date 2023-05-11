@@ -37,7 +37,7 @@ class DetermineColor:
                 Y=cup[1]/cup.sum()
                 if Y>=0.6*(X-0.18) and Y<=4(X-0.25):
                     color_count["red"]+=1
-                elif Y>=4(X-0.25) and Y<=0.45-0.25*X:
+                elif Y>=4(X-0.25) and Y<=0.45-0.25*X and Y>=2.5*(0.18-X):
                     color_count["blue"]+=1
                 else:
                     color_count["etc"]+=1
