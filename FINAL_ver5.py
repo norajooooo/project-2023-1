@@ -33,7 +33,7 @@ class DetermineColor:
             r,b,x=0,0,0
             for i in range(60):
                 for j in range(80):
-                    if (imgresize[i,j,0]<imgresize[i,j,1] and imgresize[i,j,2]<imgresize[i,j,1] and imgresize[i,j,0]+imgresize[i,j,2]<imgresize[i,j,1])or(imgresize[i,j,1]>180):
+                    if (imgresize[i,j,0]+60<imgresize[i,j,1] and imgresize[i,j,2]+60<imgresize[i,j,1] and imgresize[i,j,0]+imgresize[i,j,2]<imgresize[i,j,1])or(imgresize[i,j,1]>180):
                         x+=1
                     elif imgresize[i,j,0]>128: b+=1
                     elif imgresize[i,j,2]>128: r+=1
