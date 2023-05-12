@@ -35,8 +35,8 @@ class DetermineColor:
                 for j in range(80):
                     if (imgresize[i,j,0]+60<imgresize[i,j,1] and imgresize[i,j,2]+60<imgresize[i,j,1] and imgresize[i,j,0]+imgresize[i,j,2]<imgresize[i,j,1])or(imgresize[i,j,1]>180):
                         x+=1
-                    elif imgresize[i,j,0]>128: b+=1
-                    elif imgresize[i,j,2]>128: r+=1
+                    elif imgresize[i,j,0]+80>=imgresize[i,j,1] and imgresize[i,j,0]>128: b+=1
+                    elif imgresize[i,j,2]+80>=imgresize[i,j,1] and imgresize[i,j,2]>128: r+=1
                     else: x+=1
             if max(r,b,x)==r:
                 print('red',r,'of 4800')
